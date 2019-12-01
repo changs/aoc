@@ -1,10 +1,10 @@
 import math
 
 def fuel_requirement(mass):
-    fuel = math.floor(mass/3) - 2
-    return int(fuel)
+    return int(math.floor(mass/3) - 2)
 
 def fuel_for_module(mass):
+    mass = int(mass)
     sum = 0
     while True:
         partial_requirement = fuel_requirement(mass)
@@ -15,10 +15,7 @@ def fuel_for_module(mass):
     return sum
 
 def calculate_sum(stream):
-    sum = 0
-    for mass in stream:
-        sum += fuel_for_module(int(mass))
-    return sum
+    return sum(map(fuel_for_module, stream))
         
 if __name__ == '__main__':
     filepath = "aoc1.in"
