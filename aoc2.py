@@ -7,6 +7,7 @@ def restore(code):
     code[2] = 2
     return code
 
+
 def cpu(code):
     ip = 0
     while code[ip] != 99:
@@ -20,4 +21,13 @@ def cpu(code):
 if __name__ == '__main__':
     with open('./aoc2.in', 'r') as content_file:
         content = content_file.read()
-        print(cpu(restore(parser(content))))
+        code = parser(content)
+        for i in range(0,99):
+            for y in range(0,99):
+                tmp_code = code.copy()
+                tmp_code[1] = i
+                tmp_code[2] = y
+                if cpu(tmp_code)[0] == 19690720:
+                    print(100 * tmp_code[1] + tmp_code[2])
+                
+        # print(cpu(restore(parser(content))))
