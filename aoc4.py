@@ -1,16 +1,25 @@
+import pdb
+import collections
+
 def validator(number):
-    # rule 1
     valid = False
     s_number = str(number)
     for i in range(5):
-        if s_number[i] == s_number[i+1]:
-            valid = True
-    # rule 2
-    if not valid:
-        return(False)
-    for i in range(5):
         if s_number[i+1] < s_number[i]:
             return(False)
+    doublings = []
+    for i in range(5):
+        if s_number[i] == s_number[i+1]:
+            doublings.append((s_number[i], s_number[i+1]))
+            valid = True
+
+    if not valid:
+        return(False)
+    valid = False
+    cnt = collections.Counter(doublings)
+    if 1 in dict(collections.Counter(doublings)).values():
+        valid = True
+
     if valid:
         print(number)
     return(valid)
