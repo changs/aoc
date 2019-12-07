@@ -7,6 +7,7 @@ def validator(number):
     for i in range(5):
         if s_number[i+1] < s_number[i]:
             return(False)
+
     doublings = []
     for i in range(5):
         if s_number[i] == s_number[i+1]:
@@ -17,11 +18,11 @@ def validator(number):
         return(False)
     valid = False
     cnt = collections.Counter(doublings)
-    if 1 in dict(collections.Counter(doublings)).values():
+    if 1 in dict(cnt).values():
         valid = True
 
-    if valid:
-        print(number)
+    # if valid:
+    #     print(number)
     return(valid)
 
 if __name__ == '__main__':
