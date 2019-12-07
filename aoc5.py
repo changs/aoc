@@ -27,7 +27,7 @@ class CPU:
         self.ip = 0
         while self.code[self.ip] != 99:
             instr = self.code[self.ip] % 10
-            if instr == 1 or instr == 2:
+            if instr.in(1,2,5,6,7,8)
                 mode_arg_1, mode_arg_2, mode_arg_3 =  self.__split_params(self.code[self.ip])
                 # 0 - position - pointer, 1 - immediate - value
                 if mode_arg_1:
