@@ -3,6 +3,7 @@ import pdb
 class CPU:
     def __init__(self):
         self.reset()
+        self.output = ""
 
     def reset(self):
         self.ip = 0
@@ -22,13 +23,14 @@ class CPU:
             split.append(n)
         return split
         
-    def run(self, program):
+    def run(self, program, input):
+        self.reset()
         self.load(program)
-        self.ip = 0
+        output = ""
         while self.code[self.ip] != 99:
             instr = self.code[self.ip] % 10
-            if instr.in(1,2,5,6,7,8)
-                mode_arg_1, mode_arg_2, mode_arg_3 =  self.__split_params(self.code[self.ip])
+            mode_arg_1, mode_arg_2, mode_arg_3 =  self.__split_params(self.code[self.ip])
+            if instr in [1,2,5,6,7,8]:
                 # 0 - position - pointer, 1 - immediate - value
                 if mode_arg_1:
                     p1 = self.code[self.ip + 1]
@@ -42,23 +44,49 @@ class CPU:
                     p3 = self.code[self.ip + 3]
                 else:
                     p3 = self.code[self.ip + 3]
-                    
-                if instr == 1:
-                    self.code[p3] = p1 + p2
-                elif instr == 2:
-                    self.code[p3] = p1 * p2
+            if instr == 1: # add
+                self.code[p3] = p1 + p2
                 self.ip += 4
-
-            elif instr == 3:
-                self.code[self.code[self.ip + 1]] = 1
+            elif instr == 2: # multiply
+                self.code[p3] = p1 * p2
+                self.ip += 4
+            elif instr == 5: # jump-if-true
+                if p1 != 0:
+                    self.ip = p2
+                else:
+                    self.ip += 3
+            elif instr == 6: # jump-if-false
+                if p1 == 0:
+                    self.ip = p2
+                else:
+                    self.ip += 3
+            elif instr == 7: # less than
+                if p1 < p2:
+                    self.code[p3] = 1
+                else:
+                    self.code[p3] = 0
+                self.ip += 4
+            elif instr == 8: # equals
+                if p1 == p2:
+                    self.code[p3] = 1
+                else:
+                    self.code[p3] = 0
+                self.ip += 4
+            elif instr == 3: # input
+                self.code[self.code[self.ip + 1]] = input
                 self.ip += 2
-            elif instr == 4:
-                print("Out: ", self.code[self.code[self.ip + 1]]) 
+            elif instr == 4: # output
+                if mode_arg_1:
+                    output += str(self.code[self.ip + 1])
+                else: 
+                    output += str(self.code[self.code[self.ip + 1]])
                 self.ip += 2
-        print(self.code)
+        # print(self.code)
+        return(output)
 
 if __name__ == '__main__':
     with open('./aoc5.in', 'r') as content_file:
         content = content_file.read()
         cpu = CPU()
-        cpu.run(content)
+        print(cpu.run(content, 5))
+        
