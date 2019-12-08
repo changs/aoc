@@ -18,22 +18,19 @@ def orbit_counter(t):
         
     return orbits
 
+def path_for(planet, t):
+    path = [planet]
+    while planet != 'COM':
+        path.append(t[planet])
+        planet = t[planet]
+    return path
+
 def orbital_transfers(t):
-    distance = 0
     planet_key_you = t['YOU']
     planet_key_san = t['SAN']
 
-    path_you = []
-    path_you.append(planet_key_you)
-    while planet_key_you != 'COM':
-        path_you.append(t[planet_key_you])
-        planet_key_you = t[planet_key_you]
-    
-    path_san = []
-    path_san.append(planet_key_san)
-    while planet_key_san != 'COM':
-        path_san.append(t[planet_key_san])
-        planet_key_san = t[planet_key_san]
+    path_you = path_for(planet_key_you, t) 
+    path_san = path_for(planet_key_san, t)
 
     for i, el in enumerate(path_you):
         if el in path_san:
@@ -47,5 +44,5 @@ if __name__ == "__main__":
     with open('./aoc6.in', 'r') as content_file:
         content = content_file.read()
         t = load_data(content)
-        # print(orbit_counter(t))
+        print(orbit_counter(t))
         print(orbital_transfers(t))
