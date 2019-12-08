@@ -2,7 +2,7 @@ import unittest
 
 from aoc5 import *
 
-class TestDistance(unittest.TestCase):
+class TestCPU(unittest.TestCase):
     def test_cpu(self):
         cpu = CPU()
         # cpu.run("3,225,4,225,99")
