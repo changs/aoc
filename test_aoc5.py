@@ -5,10 +5,6 @@ from aoc5 import *
 class TestCPU(unittest.TestCase):
     def test_cpu(self):
         cpu = CPU()
-        # cpu.run("3,225,4,225,99")
-        # self.assertEqual(cpu.code[225], 1)
-        # cpu.reset()
-        #self.assertEqual(cpu.run("1101,-2,9,3,1002,8,3,8,33"), "")
         self.assertEqual(cpu.run("3,9,8,9,10,9,4,9,99,-1,8", 8), "1")
         self.assertEqual(cpu.run("3,9,8,9,10,9,4,9,99,-1,8", 7), "0")
         self.assertEqual(cpu.run("3,9,8,9,10,9,4,9,99,-1,8", 9), "0")
