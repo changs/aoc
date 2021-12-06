@@ -21,7 +21,7 @@ coords_to_add.each { |c| c.each { |coord| f[coord] += 1 } }
 count = f.select { |_, v| v > 1 }.count
 puts count
 
-# second part ... the first part could be done in similar fashion than the second part and it'd much clenar.
+# second part ... the first part could be done in similar fashion as the second part and it'd much cleaner.
 # I leave it for the sake of preserving thought process.
 
 lines_diag = coordinates.select do |l|
