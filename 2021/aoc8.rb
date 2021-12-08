@@ -3,7 +3,7 @@ require 'pry'
 r = 0
 File.readlines('./aoc8_in.txt').map do |l|
   input = l.split(' | ').last.chop.split
-  r+= input.select { |o| [2,4,3,7].include? o.size }.flatten.size
+  r += input.select { |o| [2, 4, 3, 7].include? o.size }.flatten.size
 end
 puts r
 
@@ -11,7 +11,7 @@ r = 0
 
 File.readlines('./aoc8_in.txt').map do |l|
   sample, input = l.split(' | ')
-  sample = sample.split.sort_by(&:length).map{|x| x.chars }
+  sample = sample.split.sort_by(&:length).map(&:chars)
   input.chop!
 
   h = {}
@@ -25,7 +25,7 @@ File.readlines('./aoc8_in.txt').map do |l|
   h[8] = sample.select { |i| i.size == 7 }.flatten
 
   t = h[4] + proper['a']
-  h[9] = sample.select{ |s| s.length == 6 }.select { |a| (a - t).length == 1 }.flatten
+  h[9] = sample.select { |s| s.length == 6 }.select { |a| (a - t).length == 1 }.flatten
   proper['g'] = h[9] - (h[4] + proper['a'])
 
   sample.select { |s| s.length == 6 }.reject { |s| s == h[9] }.each do |i|
